@@ -206,8 +206,12 @@ jobs:
           name: Configure server
           command: |
             cd .circleci/ansible
-            ansible-playbook configure-server.yml -i inventory.txt
-      # Here's where you will add some code to rollback on failure      
+            ls -al
+            ansible-playbook -i configure-server.yml inventory.txt
+          no_output_timeout: 30m
+      # Here's where you will add some code to rollback on failure
+      - destroy-environment:
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}      
 
   run-migrations:
     docker:
