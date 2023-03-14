@@ -1,1 +1,2 @@
 [URL01] https://github.com/OgheneMichael/udacity-ci-cd
+[URL02] http://udapeople-c8d7786.s3-website-us-east-1.amazonaws.com
