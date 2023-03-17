@@ -30,7 +30,7 @@ commands:
           command: |
             SUCCESS=$(curl --insecure https://kvdb.io/PNQQUJWqGcLcSTeLi7ChGq/migration_<<parameters.workflow_id>>)
             echo ${SUCCESS}
-            if (( $SUCCESS == 1 ));
+            if [[ "${SUCCESS}" == "1" ]]
             then
               cd ~/project/backend
               npm install
@@ -243,7 +243,7 @@ jobs:
             fi
      # Here's where you will add some code to rollback on failure      
       - destroy-environment:
-            workflow_id: 'c8d7786'
+            workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 
   deploy-frontend:
     docker:
@@ -285,7 +285,7 @@ jobs:
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
       - revert-migrations:
-            workflow_id: 'c8d7786'         
+            workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}          
    
   deploy-backend:
     docker:
@@ -340,7 +340,7 @@ jobs:
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
       - revert-migrations:
-            workflow_id: 'c8d7786'
+            workflow_id: ${CIRCLE_WORKFLOW_ID:0:7} 
 
   smoke-test:
     docker:
@@ -392,7 +392,7 @@ jobs:
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
       - revert-migrations:
-            workflow_id: 'c8d7786'
+            workflow_id: ${CIRCLE_WORKFLOW_ID:0:7} 
 
   cloudfront-update:
     docker:
