@@ -29,7 +29,7 @@ commands:
           when: on_fail
           command: |
             SUCCESS=$(curl --insecure  https://kvdb.io/PNQQUJWqGcLcSTeLi7ChGq/migration_${CIRCLE_WORKFLOW_ID:0:7})
-            if (($SUCCESS == 1))
+            if (( $SUCCESS == 1 ));
             then
               cd ~/project/backend
               npm install
@@ -383,7 +383,7 @@ jobs:
             if curl -s ${URL} | grep "Welcome"
             then
               # Change this to 0 after the job fails
-              return 0
+              return 1
             else
               return 1
             fi
